@@ -399,15 +399,19 @@ uint8_t check_timeout(void)
 
 void add_month(volatile uint8_t *month, volatile uint8_t *day, uint16_t year)
 {
-	if (*month >= 13)
-	  *month = 1;
-	if(*month == 2) {
-	  if(leapyear(year) && (*day > 29))
-	  	*day = 29;
-	  else if (!leapyear(year) && (*day > 28))
-	    *day = 28;
-	} else if ((*month == 4) || (*month == 6) || (*month == 9) || (*month == 11)) {
-      if(*day > 30)
-      	*day = 30;
+  int maxday;
+
+  if (*month >= 13)
+    *month = 1;
+
+  if (*month == 2) {
+    maxday =  leapyear(year) ? 29 : 28;
+  } else if ((*month == 4) || (*month == 6) || (*month == 9) || (*month == 11)) {
+    maxday = 30;
+  } else {
+    maxday = 31;
   }
+
+  if (*day > maxday)
+      *day = 1;
 }

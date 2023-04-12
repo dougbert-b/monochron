@@ -395,9 +395,9 @@ void set_backlight(void) {
 
 
 #ifdef OPTION_DOW_DATELONG
-uint8_t region_setting_table[12][13] PROGMEM = {
+uint8_t const region_setting_table[12][13] PROGMEM = {
 #else
-uint8_t region_setting_table[4][13] PROGMEM = {
+uint8_t const region_setting_table[4][13] PROGMEM = {
 #endif
 	"     US 12hr",
 	"     US 24hr",
@@ -636,7 +636,7 @@ void print_alarmhour(uint8_t h, uint8_t inverted) {
   }
 }
 
-uint8_t style_setting_str[] PROGMEM = { 
+uint8_t const style_setting_str[] PROGMEM = { 
 #ifdef RATTCHRON
 	STYLE_RAT,'R','A','T','T','C','h','r','o','n',0,
 #endif

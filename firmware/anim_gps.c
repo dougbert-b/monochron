@@ -20,7 +20,7 @@ extern volatile uint8_t just_pressed;
 extern volatile uint8_t displaystyle;
 extern volatile uint8_t displaymode;
 
-uint8_t GPS_Text[] PROGMEM = "\x0A" "GPS Setup\0"
+uint8_t const GPS_Text[] PROGMEM = "\x0A" "GPS Setup\0"
 	                 "\x01" "\0"
 	                 "\x0B" "Offset  : \0"
 	                 "\x11" "Status  : NOLOCK\0"

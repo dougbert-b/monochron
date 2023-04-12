@@ -1363,8 +1363,25 @@ const uint8_t nine[] PROGMEM = {
 (((31>>1)&7)<<5) |  1, ((31 & 1)<<7) | ((31>>3)<<5) |  2, ((31&7)<<5) | 31,   // original: 1, 2, 255, 255,
 };
 
-
 #endif  // of compressed data
+
+
+uint16_t
+digit_base(int d)
+{
+  switch (d) {
+  default: return (uint16_t)zero_seg;
+  case 1: return (uint16_t)one_seg;
+  case 2: return (uint16_t)two_seg;
+  case 3: return (uint16_t)three_seg;
+  case 4: return (uint16_t)four_seg;
+  case 5: return (uint16_t)five_seg;
+  case 6: return (uint16_t)six_seg;
+  case 7: return (uint16_t)seven;
+  case 8: return (uint16_t)eight;
+  case 9: return (uint16_t)nine;
+  }
+}
 
 
 #endif   // XDALICHRON

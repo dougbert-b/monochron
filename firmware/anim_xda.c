@@ -39,12 +39,7 @@ extern volatile uint8_t second_changed, minute_changed, hour_changed;
 uint8_t redraw_time_xda = 0;
 uint8_t last_score_mode_xda = 0;
 
-extern const uint8_t zero_seg[];
-extern const uint8_t one_seg[];
-
-// special pointer for reading from ROM memory
-PGM_P zero_p PROGMEM = (prog_char *) zero_seg;
-PGM_P one_p PROGMEM = (prog_char *) one_seg;
+extern uint16_t digit_base(int d);  // In rle.c
 
 // Protypes
 // Called from dispatcher:
@@ -323,7 +318,7 @@ void step_xda(void) {
 
 
 void drawdigit_xda(uint8_t x, uint8_t y, uint8_t d, uint8_t inverted) {
-//  blitsegs_rom(x, y, zero_p+d*DIGIT_HEIGHT*4, 64, inverted);
+//  blitsegs_rom(x, y, digit_base(d), 64, inverted);
 
   steps = MAX_STEPS;   // draw fully transitioned instead of specialized routine (blitsegs_rom)
   transitiondigit_xda(x, y, d, d, inverted);
@@ -349,14 +344,12 @@ void read_line(uint8_t d, uint8_t line, uint8_t *lineinfo, uint8_t *segs)
 #if 0 // no compression
 #define SEG_TERM 255
     for(uint8_t i=0;i<4;i++) {
-        lineinfo[i] = pgm_read_byte(zero_p+d*DIGIT_HEIGHT*4+4*line+i);
+        lineinfo[i] = pgm_read_byte(digit_base(d) + 4*line + i);
     }
 #else // read compressed
 #define SEG_TERM 31
 
-    uint16_t x = zero_p + 
-                 ((uint16_t) d) * ((DIGIT_HEIGHT/2)*5)  // 5 bytes per 2 lines
-                 +(line/2)*5;          // x is same for odd & even lines
+    uint16_t x = digit_base(d) + (line/2)*5;          // x is same for odd & even lines
     if(line & 1) {   // phase 1
         uint8_t d2 = pgm_read_byte(x+2);
         uint8_t d3 = pgm_read_byte(x+3);

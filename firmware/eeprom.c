@@ -26,9 +26,9 @@
 //The clocks firmware will beep 3 times then pause repeatedly, if the eeprom
 //is not initialized.
 #define EE_INITIALIZED 0xC3
-#define EE_VERSION 2
+#define EE_VERSION 3
 
-uint8_t PROGMEM EE_DATA[1] = { (uint8_t)(EE_INITIALIZED + EE_VERSION + STYLE_ABOUT) };
+uint8_t PROGMEM const EE_DATA[1] = { (uint8_t)(EE_INITIALIZED + EE_VERSION + STYLE_ABOUT) };
 uint8_t EEMEM EE_INIT=(uint8_t)(EE_INITIALIZED + EE_VERSION + STYLE_ABOUT);
 uint8_t EEMEM  EE_ALARM_HOUR=7;
 uint8_t EEMEM EE_ALARM_MIN=30;
@@ -186,7 +186,7 @@ unsigned char EEMEM Font5x7[] = {
 
 
 
-unsigned char PROGMEM FontGr[] =
+unsigned const char PROGMEM FontGr[] =
 {
 // format is one character per line:
 // length, byte array[length]
@@ -267,7 +267,7 @@ uint8_t about[] EEMEM =      "\0\0\0\0\0\0\0\0"
 	                              // 123456789ABCDEF0123456
 	                         "\x0a" "MultiChron"
                                   // 123456789ABCDEF0123456
-                             "\x0b" "Version 1.1"
+                             "\x10" "Version 1.1 Doug"
                                   // 123456789ABCDEF0123456
                              "\x00"
                                   // 123456789ABCDEF0123456

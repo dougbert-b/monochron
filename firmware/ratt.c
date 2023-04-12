@@ -47,17 +47,17 @@ struct ring_buffer {
 
 struct ring_buffer rx_buffer = { { 0 }, 0, 0 };
 
-inline void store_char(unsigned char c, struct ring_buffer *rx_buffer)
+void store_char(unsigned char c, struct ring_buffer *buf)
 {
-  int i = (rx_buffer->head + 1) % RX_BUFFER_SIZE;
+  int i = (buf->head + 1) % RX_BUFFER_SIZE;
 
   // if we should be storing the received character into the location
   // just before the tail (meaning that the head would advance to the
   // current location of the tail), we're about to overflow the buffer
   // and so we don't write the character or advance the head.
-  if (i != rx_buffer->tail) {
-    rx_buffer->buffer[rx_buffer->head] = c;
-    rx_buffer->head = i;
+  if (i != buf->tail) {
+    buf->buffer[buf->head] = c;
+    buf->head = i;
   }
 }
 
@@ -604,6 +604,8 @@ void writei2ctime(uint8_t sec, uint8_t min, uint8_t hr, uint8_t day,
   }
 
 }
+
+void GPSCheck(uint8_t mode);
 
 // runs at about 30 hz
 uint8_t t2divider1 = 0, t2divider2 = 0;

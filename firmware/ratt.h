@@ -343,7 +343,7 @@ enum {
 #define EE_TIME_FORMAT 6
 #define EE_SNOOZE 7*/
 
-extern uint8_t EE_DATA[];
+extern uint8_t const EE_DATA[];
 extern uint8_t EE_INIT;
 extern uint8_t EE_ALARM_HOUR;
 extern uint8_t EE_ALARM_MIN;
